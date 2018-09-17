@@ -1,0 +1,4 @@
+<resources>
+    <public name="lib_name" type="string"> MVVMBaseLibrary</public>
+    <public name="lib_creator" type="string">github.com/Luteoos</public>
+</resources>
