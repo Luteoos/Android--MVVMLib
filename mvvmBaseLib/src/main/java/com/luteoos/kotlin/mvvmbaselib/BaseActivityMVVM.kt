@@ -17,8 +17,8 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
 
     protected abstract fun getLayoutID(): Int
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         hideKeyboard()
         setPortraitOrientation(true)
         setContentView(getLayoutID())
