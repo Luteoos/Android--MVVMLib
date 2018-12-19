@@ -32,7 +32,7 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
         viewModel.VMMessage().observe(this, Observer { value -> onVMMessage(value) })
     }
 
-    protected fun onVMMessage(msg: String?){
+    fun onVMMessage(msg: String?){
         /**
          * override it to handle message from ViewModel
          */
