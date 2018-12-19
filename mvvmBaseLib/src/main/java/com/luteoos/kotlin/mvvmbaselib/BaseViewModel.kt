@@ -11,7 +11,7 @@ import io.realm.Realm
 
 abstract class BaseViewModel : ViewModel(){
     val disposable : CompositeDisposable = CompositeDisposable()
-    private val realm = Realm.getDefaultInstance()
+    val realm = Realm.getDefaultInstance()
 
     fun detachBus(){
         Bus.unregister(this)

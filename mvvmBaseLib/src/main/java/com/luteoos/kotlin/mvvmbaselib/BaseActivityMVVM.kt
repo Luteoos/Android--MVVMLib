@@ -38,14 +38,14 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
         viewModel.detachDisposable()
         super.onDestroy()
     }
-    private fun setPortraitOrientation(isPortrait: Boolean) {
+    protected fun setPortraitOrientation(isPortrait: Boolean) {
         when(isPortrait){
             true -> requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             false -> requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
     }
 
-    private fun hideKeyboard(){
+    protected fun hideKeyboard(){
         if(this.currentFocus != null){
             val inputMng = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMng.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
