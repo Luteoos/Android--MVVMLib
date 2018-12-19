@@ -9,8 +9,9 @@ import io.realm.Realm
  * Created by Luteoos on 13.09.2018
  */
 
-abstract class BaseViewModel(var realm : Realm) : ViewModel(){
+abstract class BaseViewModel : ViewModel(){
     val disposable : CompositeDisposable = CompositeDisposable()
+    private val realm = Realm.getDefaultInstance()
 
     fun detachBus(){
         Bus.unregister(this)
@@ -22,6 +23,7 @@ abstract class BaseViewModel(var realm : Realm) : ViewModel(){
     override fun onCleared() {
         detachDisposable()
         detachBus()
+        realm?.close()
         super.onCleared()
     }
 }

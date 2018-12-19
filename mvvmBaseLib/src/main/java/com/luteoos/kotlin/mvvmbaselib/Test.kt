@@ -5,7 +5,7 @@ import io.realm.Realm
 
 @SuppressLint("ValidFragment")
 private class Test() {
-    private val vm = object : BaseViewModel(Realm.getDefaultInstance()){}
+    private val vm = object : BaseViewModel(){}
     private val a = object : BaseActivityMVVM<BaseViewModel>(){
         override fun getLayoutID(): Int {
             viewModel = vm
