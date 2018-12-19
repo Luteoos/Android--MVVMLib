@@ -1,5 +1,6 @@
 package com.luteoos.kotlin.mvvmbaselib
 
+import android.arch.lifecycle.Observer
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -20,6 +21,19 @@ abstract class BaseFragmentMVVM<T: BaseViewModel> : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         hideKeyboard()
         return inflater.inflate(getLayoutID(), container,false)
+    }
+
+    protected fun connectToVMMessage(){
+        /**
+         * invoke this after creating viewmodel to observe message and use onVMMessage
+         */
+        viewModel.VMMessage().observe(this, Observer { value -> onVMMessage(value) })
+    }
+
+    protected fun onVMMessage(msg: String?){
+        /**
+         * override it to handle message from ViewModel
+         */
     }
 
     override fun onStop() {

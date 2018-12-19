@@ -1,5 +1,6 @@
 package com.luteoos.kotlin.mvvmbaselib
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
@@ -22,6 +23,19 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
         hideKeyboard()
         setPortraitOrientation(true)
         setContentView(getLayoutID())
+    }
+
+    protected fun connectToVMMessage(){
+        /**
+         * invoke this after creating viewmodel to observe message and use onVMMessage
+         */
+        viewModel.VMMessage().observe(this, Observer { value -> onVMMessage(value) })
+    }
+
+    protected fun onVMMessage(msg: String?){
+        /**
+         * override it to handle message from ViewModel
+         */
     }
 
     override fun onBackPressed() {

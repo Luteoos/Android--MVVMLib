@@ -1,5 +1,7 @@
 package com.luteoos.kotlin.mvvmbaselib
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.eightbitlab.rxbus.Bus
 import io.reactivex.disposables.CompositeDisposable
@@ -12,6 +14,15 @@ import io.realm.Realm
 abstract class BaseViewModel : ViewModel(){
     val disposable : CompositeDisposable = CompositeDisposable()
     val realm = Realm.getDefaultInstance()
+    protected val message : MutableLiveData<String> = MutableLiveData()
+
+    init {
+        message.value = 1.toString()
+    }
+
+    fun VMMessage(): LiveData<String>{
+        return message
+    }
 
     fun detachBus(){
         Bus.unregister(this)
