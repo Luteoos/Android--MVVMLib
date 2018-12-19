@@ -32,11 +32,10 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
         viewModel.VMMessage().observe(this, Observer { value -> onVMMessage(value) })
     }
 
-    fun onVMMessage(msg: String?){
-        /**
-         * override it to handle message from ViewModel
-         */
-    }
+    /**
+     * override it to handle message from ViewModel
+     */
+    abstract fun onVMMessage(msg: String?)
 
     override fun onBackPressed() {
         hideKeyboard()
