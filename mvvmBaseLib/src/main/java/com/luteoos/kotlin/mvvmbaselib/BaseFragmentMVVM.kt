@@ -33,7 +33,9 @@ abstract class BaseFragmentMVVM<T: BaseViewModel> : Fragment(){
     /**
      * override it to handle message from ViewModel
      */
-    abstract fun onVMMessage(msg: String?)
+    open fun onVMMessage(msg: String?){
+
+    }
 
     override fun onStop() {
         super.onStop()
@@ -45,7 +47,7 @@ abstract class BaseFragmentMVVM<T: BaseViewModel> : Fragment(){
         viewModel.detachDisposable()
     }
 
-    protected fun hideKeyboard(){
+    fun hideKeyboard(){
         if(activity!!.currentFocus != null){
             val inputMng = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMng.hideSoftInputFromWindow(activity!!.currentFocus!!.windowToken, 0)

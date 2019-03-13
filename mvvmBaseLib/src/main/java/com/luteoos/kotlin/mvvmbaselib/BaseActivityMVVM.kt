@@ -21,7 +21,6 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideKeyboard()
-        setPortraitOrientation(true)
         setContentView(getLayoutID())
     }
 
@@ -35,7 +34,9 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
     /**
      * override it to handle message from ViewModel
      */
-    abstract fun onVMMessage(msg: String?)
+    open fun onVMMessage(msg: String?){
+
+    }
 
     override fun onBackPressed() {
         hideKeyboard()
@@ -51,14 +52,15 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
         viewModel.detachDisposable()
         super.onDestroy()
     }
-    protected fun setPortraitOrientation(isPortrait: Boolean) {
+
+    fun setPortraitOrientation(isPortrait: Boolean) {
         when(isPortrait){
             true -> requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             false -> requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
     }
 
-    protected fun hideKeyboard(){
+    fun hideKeyboard(){
         if(this.currentFocus != null){
             val inputMng = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMng.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)

@@ -20,7 +20,7 @@ abstract class BaseFragmentMVVMWithoutVM : Fragment() {
         return inflater.inflate(getLayoutID(), container, false)
     }
 
-    protected fun hideKeyboard(){
+    fun hideKeyboard(){
         if(activity!!.currentFocus != null){
             val inputMng = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMng.hideSoftInputFromWindow(activity!!.currentFocus!!.windowToken, 0)
