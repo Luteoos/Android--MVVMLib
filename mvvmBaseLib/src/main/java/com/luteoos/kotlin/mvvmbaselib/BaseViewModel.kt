@@ -14,15 +14,22 @@ import io.realm.Realm
 abstract class BaseViewModel : ViewModel(){
     val disposable : CompositeDisposable = CompositeDisposable()
     val realm = Realm.getDefaultInstance()
-    protected val message : MutableLiveData<String> = MutableLiveData()
+    private val message : MutableLiveData<String> = MutableLiveData()
 
     init {
         message.value = 1.toString()
     }
 
-    fun VMMessage(): LiveData<String>{
-        return message
+    /**
+     * use it to assign message:LiveData
+     * after sets LD to "" to avoid multiple calls
+     */
+    protected fun send(msg: String){
+        message.value = msg
+        message.value = ""
     }
+
+    fun VMMessage(): LiveData<String> = message
 
     fun detachBus(){
         Bus.unregister(this)

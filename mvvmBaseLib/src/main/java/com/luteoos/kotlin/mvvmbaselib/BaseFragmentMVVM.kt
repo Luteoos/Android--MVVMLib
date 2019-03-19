@@ -1,10 +1,12 @@
 package com.luteoos.kotlin.mvvmbaselib
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,9 @@ import android.view.inputmethod.InputMethodManager
  * Created by Luteoos on 17.09.2018
  */
 abstract class BaseFragmentMVVM<T: BaseViewModel> : Fragment(){
+    /**
+     * init it with getViewModel<T>(this)
+     */
     lateinit var viewModel: T
 
     protected abstract fun getLayoutID(): Int
@@ -60,4 +65,10 @@ abstract class BaseFragmentMVVM<T: BaseViewModel> : Fragment(){
                     .activeNetworkInfo
             return activeNetInf != null && activeNetInf.isConnected
         }
+
+    companion object {
+        inline fun <reified T : BaseViewModel?> getViewModel(fragment: Fragment): T {
+            return ViewModelProviders.of(fragment).get(T::class.java)
+        }
+    }
 }

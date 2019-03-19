@@ -12,7 +12,7 @@ private class Test() {
         }
 
         override fun getLayoutID(): Int {
-            viewModel = vm
+            viewModel = getViewModel(this)
             return 0
         }
     }
@@ -22,7 +22,7 @@ private class Test() {
         }
 
         override fun getLayoutID(): Int {
-            viewModel = vm
+            viewModel = getViewModel(this)
             return 0
         }
     }

@@ -1,19 +1,28 @@
 package com.luteoos.kotlin.mvvmbaselib
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import io.realm.Realm
+import kotlin.jvm.javaClass
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.net.ConnectivityManager
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.view.inputmethod.InputMethodManager
 
 /**
  * Created by Luteoos on 13.09.2018
  */
 abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
+
+    /**
+     * init it with getViewModel<T>(this)
+     */
     lateinit var viewModel: T
 
     protected abstract fun getLayoutID(): Int
@@ -54,9 +63,9 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
     }
 
     fun setPortraitOrientation(isPortrait: Boolean) {
-        when(isPortrait){
-            true -> requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-            false -> requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        requestedOrientation = when(isPortrait){
+            true -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            false -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
     }
 
@@ -73,4 +82,10 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
                     .activeNetworkInfo
             return activeNetInf != null && activeNetInf.isConnected
         }
+
+    companion object {
+        inline fun <reified T : BaseViewModel?> getViewModel(fragment: FragmentActivity): T {
+            return ViewModelProviders.of(fragment).get(T::class.java)
+        }
+    }
 }
