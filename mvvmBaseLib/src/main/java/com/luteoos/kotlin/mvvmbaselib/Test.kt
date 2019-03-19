@@ -1,7 +1,6 @@
 package com.luteoos.kotlin.mvvmbaselib
 
 import android.annotation.SuppressLint
-import io.realm.Realm
 
 @SuppressLint("ValidFragment")
 private class Test() {

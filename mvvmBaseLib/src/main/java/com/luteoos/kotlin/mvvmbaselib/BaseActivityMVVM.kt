@@ -1,18 +1,13 @@
 package com.luteoos.kotlin.mvvmbaselib
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.os.Bundle
-import android.os.PersistableBundle
-import android.support.v7.app.AppCompatActivity
-import io.realm.Realm
-import kotlin.jvm.javaClass
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.net.ConnectivityManager
-import android.support.v4.app.Fragment
+import android.os.Bundle
 import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 
 /**
