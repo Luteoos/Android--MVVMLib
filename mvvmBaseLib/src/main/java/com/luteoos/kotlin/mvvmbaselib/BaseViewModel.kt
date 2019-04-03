@@ -12,6 +12,10 @@ import io.realm.Realm
  */
 
 abstract class BaseViewModel : ViewModel(){
+    /**
+     *use to mark if ViewModel is already initialized
+     */
+    var isInitialized: Boolean = false
     val disposable : CompositeDisposable = CompositeDisposable()
     val realm = Realm.getDefaultInstance()
     private val message : MutableLiveData<String> = MutableLiveData()
