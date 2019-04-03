@@ -22,6 +22,7 @@ abstract class BaseViewModel : ViewModel(){
 
     init {
         message.value = 1.toString()
+        isInitialized = true
     }
 
     /**
