@@ -12,8 +12,8 @@ Contains android.arch.lifecycle:extensions:1.1.1
 
 ```kotlin
 override fun onVMMessage(msg: Int?){
-super.onVMMessage(msg)
-...
+ super.onVMMessage(msg)
+ ...
 }
 ```
 
