@@ -1,6 +1,7 @@
 package com.luteoos.kotlin.mvvmbaselib
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +14,7 @@ import android.view.inputmethod.InputMethodManager
  */
 abstract class BaseFragmentMVVMWithoutVM : Fragment() {
 
-    protected abstract fun getLayoutID(): Int
+    abstract fun getLayoutID(): Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         hideKeyboard()
@@ -26,4 +27,11 @@ abstract class BaseFragmentMVVMWithoutVM : Fragment() {
             inputMng.hideSoftInputFromWindow(activity!!.currentFocus!!.windowToken, 0)
         }
     }
+
+    val isNetworkOnLine: Boolean
+        get(){
+            val activeNetInf = (activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+                    .activeNetworkInfo
+            return activeNetInf != null && activeNetInf.isConnected
+        }
 }

@@ -20,7 +20,7 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
      */
     lateinit var viewModel: T
 
-    protected abstract fun getLayoutID(): Int
+    abstract fun getLayoutID(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,33 +28,25 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
         setContentView(getLayoutID())
     }
 
-    protected fun connectToVMMessage(){
-        /**
-         * invoke this after creating viewmodel to observe message and use onVMMessage
-         */
+    /**
+     * invoke when VM is assigned
+     */
+    fun connectToVMMessage(){
         viewModel.VMMessage().observe(this, Observer { value -> onVMMessage(value) })
     }
 
     /**
      * override it to handle message from ViewModel
+     * 'null' or '0' skips method body
      */
-    open fun onVMMessage(msg: String?){
-
+    open fun onVMMessage(msg: Int?){
+        if(msg == null || msg == 0)
+            return
     }
 
     override fun onBackPressed() {
         hideKeyboard()
         super.onBackPressed()
-    }
-
-    override fun onStop() {
-        viewModel.detachBus()
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        viewModel.detachDisposable()
-        super.onDestroy()
     }
 
     fun setPortraitOrientation(isPortrait: Boolean) {
@@ -79,7 +71,7 @@ abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
         }
 
     companion object {
-        inline fun <reified T : BaseViewModel?> getViewModel(fragment: FragmentActivity): T {
+        inline fun <reified T : BaseViewModel> getViewModel(fragment: FragmentActivity): T {
             return ViewModelProviders.of(fragment).get(T::class.java)
         }
     }

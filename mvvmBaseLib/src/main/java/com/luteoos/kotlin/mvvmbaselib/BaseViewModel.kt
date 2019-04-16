@@ -3,50 +3,32 @@ package com.luteoos.kotlin.mvvmbaselib
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.eightbitlab.rxbus.Bus
-import io.reactivex.disposables.CompositeDisposable
-import io.realm.Realm
 
 /**
  * Created by Luteoos on 13.09.2018
+ * uses android.arch.lifecycle.MutableLiveData and ViewModel
  */
 
 abstract class BaseViewModel : ViewModel(){
+
     /**
-     *use to mark if ViewModel is already initialized
+     * Serves as quick bus between VM and owner-View
      */
-    var isInitialized: Boolean = false
-    val disposable : CompositeDisposable = CompositeDisposable()
-    val realm = Realm.getDefaultInstance()
-    private val message : MutableLiveData<String> = MutableLiveData()
+    private val message : MutableLiveData<Int> = MutableLiveData()
 
     init {
-        message.value = 1.toString()
-        isInitialized = true
+        message.value = 0
     }
 
     /**
      * use it to assign message:LiveData
-     * after sets LD to "" to avoid multiple calls
+     * do not use 0 value, its considered default empty
      */
-    protected fun send(msg: String){
+    protected fun send(msg: Int){
         message.value = msg
-        message.value = ""
+        message.value = 0
     }
 
-    fun VMMessage(): LiveData<String> = message
+    fun VMMessage(): LiveData<Int> = message
 
-    fun detachBus(){
-        Bus.unregister(this)
-    }
-    fun detachDisposable(){
-        disposable.clear()
-    }
-
-    override fun onCleared() {
-        detachDisposable()
-        detachBus()
-        realm?.close()
-        super.onCleared()
-    }
 }

@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 
 @SuppressLint("ValidFragment")
 private class Test() {
-    private val vm = object : BaseViewModel(){}
+    private val vm = @SuppressLint("StaticFieldLeak")
+    object : BaseViewModel(){}
     private val a = object : BaseActivityMVVM<BaseViewModel>(){
-        override fun onVMMessage(msg: String?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
 
         override fun getLayoutID(): Int {
             viewModel = getViewModel(this)
@@ -16,9 +14,6 @@ private class Test() {
         }
     }
     private var b = object : BaseFragmentMVVM<BaseViewModel>(){
-        override fun onVMMessage(msg: String?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
 
         override fun getLayoutID(): Int {
             viewModel = getViewModel(this)
