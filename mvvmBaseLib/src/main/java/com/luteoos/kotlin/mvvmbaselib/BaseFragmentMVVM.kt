@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,10 @@ abstract class BaseFragmentMVVM<T: BaseViewModel> : BaseFragmentMVVMWithoutVM(){
 
     companion object {
         inline fun <reified T : BaseViewModel?> getViewModel(fragment: Fragment): T {
+            return ViewModelProviders.of(fragment).get(T::class.java)
+        }
+
+        inline fun <reified T : BaseViewModel?> getViewModel(fragment: FragmentActivity): T {
             return ViewModelProviders.of(fragment).get(T::class.java)
         }
     }
