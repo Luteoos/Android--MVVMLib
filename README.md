@@ -5,7 +5,7 @@ Contains android.arch.lifecycle:extensions:1.1.1
 
 ```
  maven { url 'https://jitpack.io' }
- implementation 'com.github.Luteoos:Android--MVVMLib:3.0.0'
+ implementation 'com.github.Luteoos:Android--MVVMLib:3.0.1'
 ```
 
 ### Library implements simple 'bus' between VM and View able to transfer Int-based parameters, to enable it:
