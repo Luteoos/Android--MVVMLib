@@ -21,7 +21,7 @@ override fun onVMMessage(msg: Int?){
 - `0` and `null` are values used to flush data, do not use it as your custom parameter value
 
 ### changes in 3.1.0x
--migrated to AndroidX
--changed package scope to more valid
--upgraded arch.lifecycle version
--simplified unused imports
+- migrated to AndroidX
+- changed package scope to more valid
+- upgraded arch.lifecycle version
+- simplified unused imports
