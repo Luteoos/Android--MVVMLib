@@ -9,70 +9,36 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 
 /**
  * Created by Luteoos on 13.09.2018
  */
-abstract class BaseActivityMVVM<T: BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivityMVVM<T: BaseViewModel> : BaseActivityMVVMWithoutVM() {
 
     /**
      * init it with getViewModel<T>(this)
      */
     lateinit var viewModel: T
 
-    abstract fun getLayoutID(): Int
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        hideKeyboard()
-        setContentView(getLayoutID())
-    }
-
     /**
-     * invoke when VM is assigned
+     * To invoke when VM is assigned
      */
     fun connectToVMMessage(){
-        viewModel.VMMessage().observe(this, Observer { value -> onVMMessage(value) })
+        viewModel.message().observe(this, Observer { onVMMessage(it) })
     }
 
     /**
      * override it to handle message from ViewModel
-     * 'null' or '0' skips method body
+     *
      */
-    open fun onVMMessage(msg: Int?){
-        if(msg == null || msg == 0)
-            return
+    open fun onVMMessage(msg: Event<Int>){
     }
-
-    override fun onBackPressed() {
-        hideKeyboard()
-        super.onBackPressed()
-    }
-
-    fun setPortraitOrientation(isPortrait: Boolean) {
-        requestedOrientation = when(isPortrait){
-            true -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-            false -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        }
-    }
-
-    fun hideKeyboard(){
-        if(this.currentFocus != null){
-            val inputMng = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMng.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
-        }
-    }
-
-    val isNetworkOnLine: Boolean
-        get(){
-            val activeNetInf = (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
-                    .activeNetworkInfo
-            return activeNetInf != null && activeNetInf.isConnected
-        }
 
     companion object {
-        inline fun <reified T : BaseViewModel> getViewModel(fragment: FragmentActivity): T {
-            return ViewModelProviders.of(fragment).get(T::class.java)
+        inline fun <reified T : BaseViewModel> getViewModel(activity: FragmentActivity): T {
+            return ViewModelProviders.of(activity).get(T::class.java)
         }
     }
 }

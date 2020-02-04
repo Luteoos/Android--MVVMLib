@@ -3,31 +3,36 @@ package io.github.luteoos.mvvmbaselib
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
+import android.view.WindowManager
+import androidx.fragment.app.Fragment
 
 /**
  * Created by Luteoos on 17.09.2018
  */
 abstract class BaseFragmentMVVMWithoutVM : Fragment() {
 
+    /**
+     * override and set layoutId here
+     */
     abstract fun getLayoutID(): Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        hideKeyboard()
         return inflater.inflate(getLayoutID(), container, false)
     }
 
+    /**
+     * call to hide keyboard
+     */
     fun hideKeyboard(){
-        if(activity!!.currentFocus != null){
-            val inputMng = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMng.hideSoftInputFromWindow(activity!!.currentFocus!!.windowToken, 0)
-        }
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
+    /**
+     * check if network connection is possible
+     */
     val isNetworkOnLine: Boolean
         get(){
             val activeNetInf = (activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)

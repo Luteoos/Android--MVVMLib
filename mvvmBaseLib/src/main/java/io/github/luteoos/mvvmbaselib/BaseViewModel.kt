@@ -14,21 +14,18 @@ abstract class BaseViewModel : ViewModel(){
     /**
      * Serves as quick bus between VM and owner-View
      */
-    private val message : MutableLiveData<Int> = MutableLiveData()
-
-    init {
-        message.value = 0
-    }
+    private val message : MutableLiveData<Event<Int>> = MutableLiveData()
 
     /**
      * use it to assign message:LiveData
-     * do not use 0 value, its considered default empty
+     * posts value only if hs activeObservers
      */
     protected fun send(msg: Int){
-        message.value = msg
-        message.value = 0
+        message.let {
+            if(it.hasActiveObservers())
+                it.postValue(Event(msg))
+        }
     }
 
-    fun VMMessage(): LiveData<Int> = message
-
+    fun message(): LiveData<Event<Int>> = message
 }
