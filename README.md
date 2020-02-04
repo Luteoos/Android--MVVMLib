@@ -1,27 +1,29 @@
 # Android--MVVMLib with LiveData
 Base classes for easier handling MVVM in android/Kotlin
 
-Contains android.arch.lifecycle:extensions:2.0.0
+Contains 
+- android.arch.lifecycle:extensions:2.2.0
+- androidx.appcompat:appcompat:1.1.0
 
 ```
  maven { url 'https://jitpack.io' }
  implementation 'com.github.Luteoos:Android--MVVMLib:3.1.0x'
 ```
 
-### Library implements simple 'bus' between VM and View able to transfer Int-based parameters, to enable it:
+### Library implements simple 'event bus' between VM and View able to transfer Event<Int> to listening classes
 
 ```kotlin
-override fun onVMMessage(msg: Int?){
- super.onVMMessage(msg)
+override fun onVMMessage(msg: Event<Int>){
+	when(msg.peek())
  ...
 }
 ```
 
 - after initialization viewModel invoke `connectToVMMessage()`
-- `0` and `null` are values used to flush data, do not use it as your custom parameter value
+- using `Event<T>.get()` returns `null` after one use, use `peek()` for multiple uses 
 
-### changes in 3.1.0x
-- migrated to AndroidX
-- changed package scope to more valid
-- upgraded arch.lifecycle version
+### changes in 4.0.0
+- added `Event<T>`
+- added `BaseActivityWithoutVM`
+- updated appcompat and lifecycle-extensions
 - simplified unused imports
