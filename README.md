@@ -7,7 +7,7 @@ Contains
 
 ```
  maven { url 'https://jitpack.io' }
- implementation 'com.github.Luteoos:Android--MVVMLib:3.1.0x'
+ implementation 'com.github.Luteoos:Android--MVVMLib:4.0.0'
 ```
 
 ### Library implements simple 'event bus' between VM and View able to transfer Event<Int> to listening classes
